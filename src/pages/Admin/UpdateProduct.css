@@ -1,0 +1,11 @@
+.prod-img{
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.prod-img img{
+    max-width: 100%;
+    max-height: 100%;
+}

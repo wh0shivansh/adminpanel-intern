@@ -1,0 +1,68 @@
+.all-users {
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.user-details {
+    overflow: auto;
+}
+
+table {
+    /* margin-left: 89px; */
+    border: 1px solid #000;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    height: 3rem;
+    width: 20rem;
+    color: #feffff;
+    background-color: #000;
+}
+
+td,
+th {
+    padding: 0.5rem;
+    text-align: left;
+    border: 0.02px solid black;
+}
+td:nth-child(n+8){
+    margin-top: -.5px;
+    /* background-color: red; */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+/* 
+th:nth-child(1),
+th:nth-child(2),
+th:nth-child(3) {
+    border: 1px solid white;
+} */
+
+th:nth-child(1){
+    border-left:1px solid #000;
+}
+th:nth-child(3){
+    border-right:1px solid #000;
+}
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 380px) {
+    table{
+       margin-left: 80px;
+    }
+
+}

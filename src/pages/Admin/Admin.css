@@ -1,0 +1,443 @@
+.admin-page{
+  /* overflow: hidden; */
+    /* padding: 0 10rem; */
+    /* width: calc(100%-22rem); */
+}
+
+.popup-bg{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 8;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.753);
+}
+.popup-container{
+  position: fixed;
+  z-index: 7;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.753);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup{z-index: 10;
+  height: 20rem;
+  width: 40rem;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #000;
+  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.close-popup{
+  position: absolute;
+  right: 20px;
+  top: 9px;
+  color: #feffff;
+  height: 20px;
+  width:  20px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.popup-span{
+  display: flex;
+}
+.popup-images{
+  margin-right: 20px;
+  height: 15rem;
+  margin-left: 10rem;
+  width: 15rem;
+  overflow-y: scroll;
+}
+
+
+@media screen and (max-width:645px) {
+  .popup{
+    width: 20rem;
+    height: 32rem;
+  }  
+  .popup-span{
+    flex-direction: column;
+  }
+  .popup-images{
+    height: 11rem;
+    width: 12rem;
+    margin-left: 57px;
+    scroll-behavior: smooth;
+  }
+}
+
+
+.popup-img-span{
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  background-color: rgba(136, 136, 136, 0.194);
+  height: 15rem;
+}
+.popup-image{
+  max-width: 100%;
+  max-height: 100%;
+}
+.popup-heads{
+  font-weight: bold;
+}
+
+
+
+
+
+.info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -15px;
+  text-transform: capitalize;
+  font-size: 14px;
+  /* background-color: red; */
+  max-width: 30rem;
+  /* width: 30rem; */
+  /* min-height: 10px; */
+  /* max-width: 19rem; */
+
+  /* max-width: 100%; */
+}
+.text-area{
+  position: absolute;
+  left:80px;
+  max-width: 20rem;
+  margin-left: 5px;
+}
+.info p{
+  font-size: 14px;
+  font-weight: bold;
+}
+.popup .p{
+  background-color: #000;
+  height: 2.5rem;
+  margin-top: 0;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #feffff;
+}
+.popup-details{
+  overflow: hidden;
+  padding: 0 15px;
+  /* max-width:90%; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.display-none{
+  display: none;
+}
+.title{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: gray;
+}
+.admin-products{
+    margin:0 5rem;
+    /* width: 100%; */
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.delete{
+  /* background-color: red; */
+    box-shadow: 0 0 5px #1a1a1de9;
+  }
+.edit,.delete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 100%;
+    /* border-left: 1px solid #1a1a1d; */
+    /* border: 1px solid; */
+    border-radius: 50%;
+    height: 30px;
+    position: relative;
+    top: 17px;
+    margin: 3px;
+    transition: .2s linear;
+    border: none;
+}
+.edit{
+    /* background-color: yellow; */
+    box-shadow: 0 0 5px #1a1a1de9;
+    margin-right: 15px;
+  }
+  .edit:hover,.delete:hover,.a:hover{
+    transform: scale(1.2);
+  }
+.details{
+    
+    display: flex;
+    align-items: center;
+    width: calc(100% - 8rem);
+}
+
+.add-products{
+    display: flex;
+    height: 3rem;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: center; 
+}
+.add-products .a{
+  transition: .2s linear;
+    align-items: center;
+    box-shadow: 0 0 5px #1a1a1de9;
+    justify-content: center;
+    text-decoration: none;
+    /* height: 3rem; */
+    /* border: 1px solid black; */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    /* background-color: #65d665; */
+color: white;
+}
+.add-products .a svg{
+    margin:0.4rem;
+}
+.ad
+.topbar{
+    height: 5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-dashboard{
+    /* display: flex; */
+    padding: 0;
+    /* margin-left: -35px; */
+}
+.admin-dashboard table{
+  margin-left: -35px;
+}
+.admin-panel-text{
+  font-size: 4rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width:  100%;
+}
+.table-img img{
+  max-width: 100%;
+  max-height: 100%;
+}
+.select-category{
+  height: 2rem;
+  width: 15rem;
+}
+.categories p{
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.new-admin-products{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    height: 5rem;
+    margin-bottom: 1rem;
+    border-radius:10px ;
+    /* border: 1px solid #1a1a1d; */
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;}
+.topbar {
+    font-size: 30px;
+}
+.prod-details{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  
+}
+
+
+
+.dashboardBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10vh;
+  max-width: 100%;
+  /* background-color: red; */
+}
+.deco-none{
+  text-decoration: none;
+}
+
+.dastbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  height: 10rem;
+  margin: 2rem;
+  /* Add some margin between the buttons */
+  background-color: black;
+  border-radius: 3em;
+  /* min-width: 13rem;
+  max-width: 13rem; */
+  width: 13rem;
+  cursor: pointer;
+  transition: .2s linear;
+}
+
+.dastbtn a {
+ color: white;
+ font-size: 1.2rem;
+ margin-left: 5px;
+}
+
+.dastbtn:hover {
+  transform: scale(1.1);
+}
+
+
+@media only screen and (max-width: 1050px){
+    .admin-products {
+        margin: 0px;
+        position: relative;
+left: 35px;
+      }
+
+/* Adjustments for smaller screens */
+.dashboardBtns {
+  /* flex-wrap: wrap; */
+  /* Wrap the buttons to a new line if necessary */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px;
+  align-items: center;
+  /* Center the buttons vertically */
+  margin-left: 0;
+  max-width:100%;
+  padding-left: 10px;
+  margin-top: -150px;
+  height: 55rem;
+  /* Remove the left margin */
+  
+}
+
+.dastbtn a{}
+.dastbtn {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  /* position: relative; */
+  /* right: 3em; */
+  /* margin: 2rem; */
+  /* Add margin around the buttons */
+  /* width: calc(50% - 2rem); */
+  /* Arrange the buttons in two columns */
+}
+
+      .new-admin-products {
+       
+        display: flex;
+      
+        margin-bottom: 1rem;
+        border: 1px solid #1a1a1d;
+        height: 418px;
+        flex-direction: column;
+        width: 80%;
+      }
+      .details {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 8rem);
+        flex-direction: column;
+        width: 100%;
+      }
+      .prod-details {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        flex-direction: column;
+        font-size: 20px;
+      }
+      
+      .prod-img {
+        height: 11rem;
+        width: 11rem;
+        margin-bottom: 19px;
+      }
+      /* .name{
+        position: relative;
+       
+        left: -77px;
+      }
+      .brand{
+        position: relative;
+       
+        left: -95px;
+      }
+      .available{
+        position: relative;
+       
+        left: -95px;
+      }
+      .price{
+        position: relative;
+       
+        left: -95px;
+      } */
+      .edit {
+        left: 68px;
+        top: 64px;
+      }
+      .delete{
+        left: 148px;
+      }
+
+
+
+      
+}
+
+@media  screen and (max-width:1246px) {
+    .dashboardBtns{
+      transform: scale(0.8);
+    }
+}
+

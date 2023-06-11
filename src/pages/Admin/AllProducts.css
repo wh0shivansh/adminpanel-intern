@@ -1,0 +1,18 @@
+.admin{
+    overflow: auto;
+}
+.select-category{
+    height: 2.8rem;
+    width: 25rem;
+    padding:0 10px;
+    font-size: 16px;
+}
+.select-category option{
+    text-transform: capitalize;
+}
+
+@media screen and (max-width:430px) {
+    .select-category{
+        width: 19rem;
+    }
+}

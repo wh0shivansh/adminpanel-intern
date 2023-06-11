@@ -1,0 +1,121 @@
+.addprod-container {
+    display: flex;
+    align-items: center;
+    flex-wrap:wrap ;
+    justify-content: center;
+    /* padding-top: 40px; */
+    /* padding: 0 0px; */
+}
+
+.addprod-form{
+    display: flex;
+    flex-direction: column;
+    /* padding: 0px 10px; */
+    /* border: 1px solid rgb(224, 224, 224); */
+    border-radius: 10px;
+    width: 600px;
+    /* background-color: rgb(78, 78, 78); */
+}
+
+.addprod-form label {
+    padding: 0px;
+    margin-top:20px;
+    margin-bottom:4px;
+    font-weight: 500;
+    display: flex;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.addprod-form input {
+    /* margin: 2px 0px; */
+    /* border-radius: 5px; */
+    padding-left: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.525);
+    border-radius: 4px;
+    /* background-color: transparent; */
+    /* box-shadow: 0 0 5px rgba(128, 128, 128, 0.83); */
+    /* font-size: 13px; */
+    height: 2.2rem;
+}
+
+.addprod-form textarea {
+    margin: 2px 0px;
+    /* border-radius: 5px; */
+    padding-left: 10px;
+    height: 4rem;
+    border:none;
+    font-size: 13px;
+    border: 1px solid rgba(128, 128, 128, 0.525);
+    /* box-shadow: 0 0 5px rgba(128, 128, 128, 0.83); */
+
+}
+
+.addprod-form input:focus {
+    outline: 2px solid rgb(0, 34, 255);
+    border: none;
+}
+
+.addprod-form button {
+    background-color:#000;
+    margin-top: 20px;
+    border: none;
+    font-size: 18px;
+    color: #feffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    height: 2.5rem;
+    transition: .1s linear;
+}
+.addprod-form button a{
+    color: #feffff;
+    text-decoration: none;
+}
+
+.addprod-form button:hover {
+    background-color: transparent;
+    border:2px solid #000;
+    color: #000;
+    cursor: pointer;
+}
+
+.success-msg {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    background-color: rgb(229, 255, 228);
+    padding: 10px;
+    border-radius: 10px;
+    color: green;
+}
+
+.error-msg {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    background-color: rgb(255, 228, 228);
+    color: red;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+
+@media only screen and (max-width: 640px){
+    .addprod-form {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 10px;
+        border: 1px solid rgb(224, 224, 224);
+        border-radius: 10px;
+        width:300px;
+       
+      
+      }
+}
+
+.stockcount{
+    position: relative;
+    top: 10px;
+}
