@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './UpdateProduct.css';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, arrayUnion, deleteDoc, deleteField, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../../firebase/config';
 import Spinner from '../../components/Spinner/Spinner';
@@ -107,11 +107,11 @@ const UpdateProducts = () => {
                     category: arrayUnion(`${category}`),
                 }).then(() => {
                     setSuccessMsg('Product added successfully');
-                    navigate('/');
+                    navigate('/allproducts');
                 })
             }else{
                 
-                navigate('/');
+                navigate('/allproducts');
             }
 
         }
@@ -133,17 +133,17 @@ const UpdateProducts = () => {
 
 
 
-    const handleUpdateProducts = (e) => {
+    const handleUpdateProducts = async(e) => {
         Setloading(true);
         e.preventDefault();
         updateDoc(doc(db, `products`, `${id}`), {
             product: {
-                brandName,
-                category,
+                brandName:brandName.toLowerCase(),
+                category:category.toLowerCase(),
                 countInStock,
                 price,
                 productDetails,
-                productName,
+                productName:productName.toLowerCase(),
                 salt1,
                 powerSalt1,
                 molecule,
@@ -154,6 +154,9 @@ const UpdateProducts = () => {
             setUploadError(error.message)
          });
          if(id){
+            await updateDoc(doc(db, "products", id), {
+                images: deleteField(),
+            });
             uploadFiles(id);
         }
 
@@ -190,6 +193,8 @@ const UpdateProducts = () => {
                         <input type="text" placeholder={`${product.brandName}`} onChange={(e) => { setBrandName(e.target.value) }} />
                         <label>Category</label>
                         <input onChange={(e) => setCategory(e.target.value)} placeholder={`${product.category}`} type="text" />
+                        <label>Name</label>
+                        <input onChange={(e) => setProductName(e.target.value)} placeholder={`${product.productName}`} ></input>
                         <label>In Stock</label>
                         <input onChange={(e) => setCountInStock(e.target.value)} placeholder={`${product.countInStock}`} type="number" />
                         <label>Molecule of Medicine</label>
@@ -206,14 +211,12 @@ const UpdateProducts = () => {
                                 e.preventDefault();
                                 ResetFields();
                             }
-                        }} type="file" multiple />
+                        }} type="file" multiple accept='image/*'/>
                         {imageError && <>
                             <div className='error-msg'>{imageError}</div>
                         </>}
                         <label>Details</label>
                         <textarea onChange={(e) => setProductDetails(e.target.value)} placeholder={`${product.productDetails}`}></textarea>
-                        <label>Name</label>
-                        <input onChange={(e) => setProductName(e.target.value)} placeholder={`${product.productName}`} ></input>
                         <label>Salt </label>
                         <input onChange={(e) => setSalt1(e.target.value)} placeholder={`${product.salt1}`} type="text" />
                         <label>Power Of Salt(mg)</label>

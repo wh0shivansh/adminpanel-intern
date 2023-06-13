@@ -28,7 +28,6 @@ const SignUp = () => {
           addDoc(collection(db,"users"),{
             username:userName,
             email:email,
-            password:password,
             mobilenumber:mobilenumber,
             uid:user.uid
           }).then(()=>{
@@ -53,30 +52,47 @@ const SignUp = () => {
         })
       }
 
+      const checkSignUp=(e)=>{
+        if(mobilenumber.length != 10){
+          setErrorMsg("Invalid Mobile Number");
+          return;
+        }
+        else if(password.length < 6 ){
+          setErrorMsg("Password must contain 7 characters");
+          return;
+        }else{
+          handleSubmit(e);
+        }
+
+
+      }
+
   return (
     <div className='signup'>
 
     <div className="signup-container" >
-      <form className="signup-form" onSubmit={handleSubmit}>
+      <form className="signup-form" onSubmit={checkSignUp}>
         <p>Create Account</p>
-
         {successMsg&&<>
-        <div className='msg-box'>
+        <div className='success-msg'>
             {successMsg}
-          </div></>}  
+          </div></>}
           {errorMsg&&<>
-        <div className='msg-box'>
+        <div className='error-msg'>
             {errorMsg}
           </div></>}
 
         <label htmlFor="">Your Name</label>
-        <input onChange={(e)=>setUserName(e.target.value)} type="text" />
+        <input onChange={(e)=>
+          setUserName(e.target.value)
+          } type='text' required/>
         <label htmlFor="">Mobile Number</label>
-        <input onChange={(e)=>setMobileNumber(e.target.value)} type="tel"  />
+        <input onChange={(e)=>
+setMobileNumber(e.target.value)} type="number"  pattern="[0-9]*" required />
         <label htmlFor="">Email</label>
-        <input onChange={(e)=>setEmail(e.target.value)} type="email" />
+        <input onChange={(e)=>setEmail(e.target.value)} type="email" required />
         <label htmlFor="">Password</label>
-        <input onChange={(e)=>setPassword(e.target.value)} type="password"  />
+        <input onChange={(e)=>setPassword(e.target.value)} type="password" required />
        <button type='submit'className='submit-btn'>Sign Up</button>
       <div>
         <span className='switch-login-signup'>Already have an account?</span>

@@ -32,6 +32,10 @@ const Login = () => {
       .catch((error)=>{
         if(error.message == "Firebase: Error (auth/invalid-email)."){
           setErrorMsg("Invalid Email or Pass");
+        }else if(error.message == "Firebase: Error (auth/user-not-found)."){
+          setErrorMsg("Invalid Credentials");
+        }else if(error.message == "Firebase: Error (auth/wrong-password)."){
+          setErrorMsg("Invalid Email or Pass");
         }
         else{
           setErrorMsg(error.message);
@@ -55,9 +59,9 @@ const Login = () => {
             {errorMsg}
           </div></>}
         <label htmlFor="">Email</label>
-        <input onChange={(e)=>setEmail(e.target.value)} type="email"  />
+        <input onChange={(e)=>setEmail(e.target.value)} type="email"  required/>
         <label htmlFor="">Password</label>
-        <input onChange={(e)=>setPassword(e.target.value)} type="password"/>
+        <input onChange={(e)=>setPassword(e.target.value)} type="password" required/>
        <button type='submit' className='submit-btn'>Log In</button>
       <div>
         <span className='switch-login-signup'>Don't have an account?</span>
@@ -68,10 +72,8 @@ const Login = () => {
       </form>
     </div>
     
-    <div className="developers">
-          Shivansh Upadhyay, 
-          Shivansh Mehta, 
-          Saiyam Shukla
+    <div className="developer">
+          Shivansh Upadhyay
         </div>
   </div>
   )

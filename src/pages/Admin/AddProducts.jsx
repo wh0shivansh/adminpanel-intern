@@ -12,7 +12,6 @@ import Navbar from '../../components/Navbar/Navbar'
 
 const AddProducts = () => {
 
-
     let newDate = new Date()
     let date = newDate.getDate();
     let month = newDate.getMonth() + 1;
@@ -73,46 +72,47 @@ const AddProducts = () => {
     const loggedUser = GetCurrentUser();
     // if (loggedUser) { console.log(loggedUser[0].email) }
 
-    const types = ['image/jpg','image/JPG','image/jpeg', 'image/png', 'image/PNG']
+    const types = ['image/jpg', 'image/JPG', 'image/jpeg', 'image/png', 'image/PNG'];
 
     const uploadFiles = async (docId) => {
-        console.log(images);
-        console.log("DID = "+docId);
-        const imageRef = ref(storage, `/images/${images.name}`);
-        const downloadURLs = []
-        for (let i = 0; i < images.length; i++) {
-            const imageRef = ref(storage, `product-images/${category}/${images[i].name}_${Date.now()}`);
-            uploadBytes(imageRef, images[i]).then(async () => {
-                const downloadURL = await getDownloadURL(imageRef);
-                downloadURLs.push(downloadURL);
-                console.log("DID2 = "+docId);
-                await updateDoc(doc(db, "products", docId), {
-                    images: arrayUnion(downloadURL),
-                }).then(() => {
-                    setImageError(false);
-                }).catch((err) => {
-                    setImageError(true);
-                    console.log(err.message);
+        if (images){
+            const imageRef = ref(storage, `/images/${images.name}`);
+            const downloadURLs = [];
+
+            for (let i = 0; i < images.length; i++) {
+                const imageRef = ref(storage, `product-images/${category}/${images[i].name}_${Date.now()}`);
+                uploadBytes(imageRef, images[i]).then(async () => {
+                    const downloadURL = await getDownloadURL(imageRef);
+                    downloadURLs.push(downloadURL);
+                    console.log("DID2 = " + docId);
+                    await updateDoc(doc(db, "products", docId), {
+                        images: arrayUnion(downloadURL),
+                    }).then(() => {
+                        setImageError(false);
+                    }).catch((err) => {
+                        setImageError(true);
+                        console.log(err.message);
+                    })
                 })
-            })
+            }
         }
+
         if (!imageError) {
             console.log("Uploaded Everything");
             setSuccessMsg("Adding Product");
-                for(let i=0;i<categories.length;i++){
-                    if(categories[i] == category.toLowerCase()){
-                        setIsExistCat(true);
-                    }
+            for (let i = 0; i < categories.length; i++) {
+                if (categories[i] == category.toLowerCase()) {
+                    setIsExistCat(true);
                 }
-                if(!isExistCat){
-                    await updateDoc(doc(db, "categories", `${localStorage.getItem('categoryId')}`), {
-                        category: arrayUnion(`${category}`),
-                    }).then(() => {
-                        setSuccessMsg('Product added successfully');
-                        navigate('/');
-                    })
-                }
-
+            }
+            if (!isExistCat) {
+                await updateDoc(doc(db, "categories", `${localStorage.getItem('categoryId')}`), {
+                    category: arrayUnion(`${category}`),
+                }).then(() => {
+                    setSuccessMsg('Product added successfully');
+                    navigate('/');
+                })
+            }
         }
     }
 
@@ -141,13 +141,13 @@ const AddProducts = () => {
     const handleAddProduct = async (e) => {
         e.preventDefault();
         Setloading(true);
-
-        const q = query(collection(db, "products"), where("product.category", "==", category.toLowerCase()), where("product.brandName", "==", productName.toLowerCase()));
+        const q = query(collection(db, "products"),where("product.productName","==",productName.toLowerCase()),where("product.powerSalt1","==",powerSalt1),where("product.brandName","==",brandName.toLowerCase()));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
             addNewProduct(e);
             setSuccessMsg("Product Adding...");
         } else {
+            window.scrollTo(0,0);
             setErrorMsg("Product Already Exists");
             Setloading(false);
         }
@@ -160,21 +160,21 @@ const AddProducts = () => {
         e.preventDefault();
         const docref = await addDoc(collection(db, `products`), {
             product: {
-                brandName,
-                category,
+                brandName:brandName.toLowerCase(),
+                category:category.toLowerCase(),
                 countInStock,
                 price,
                 productDetails,
-                productName,
+                productName:productName.toLowerCase(),
                 salt1,
                 powerSalt1,
                 molecule,
                 expDate,
             }
-        }).catch(err=>{
+        }).catch(err => {
             setErrorMsg(err.message);
         });
-        if(docref){
+        if (docref) {
             console.log(docref.id);
             uploadFiles(docref.id);
         }
@@ -182,7 +182,7 @@ const AddProducts = () => {
 
     }
 
-    const ResetFields=()=>{
+    const ResetFields = () => {
         setBrandName("");
         setProductName("");
         setProductDetails("");
@@ -196,21 +196,21 @@ const AddProducts = () => {
     }
 
 
-    
-  // FETCHING CATEGORIES FOR ADMIN 
-  function GetCategories() {
-    useEffect(() => {
-      const getCategories = async () => {
-        const docRef = doc(db, 'categories', `${localStorage.getItem('categoryId')}`);
-        const docSnap = await getDoc(docRef);
-        setcategories(docSnap.data().category);
-      }
-      getCategories();
 
-    }, [localStorage.getItem('categoryId')])
-    return categories
-  }
-  GetCategories();
+    // FETCHING CATEGORIES FOR ADMIN 
+    function GetCategories() {
+        useEffect(() => {
+            const getCategories = async () => {
+                const docRef = doc(db, 'categories', `${localStorage.getItem('categoryId')}`);
+                const docSnap = await getDoc(docRef);
+                setcategories(docSnap.data().category);
+            }
+            getCategories();
+
+        }, [localStorage.getItem('categoryId')])
+        return categories
+    }
+    GetCategories();
 
 
     return (
@@ -219,7 +219,7 @@ const AddProducts = () => {
             <Sidebar />
             <p className='page-title'>Add Products</p>
             {
-                loggedUser && loggedUser[0].email === "admin@admin.com" ?
+                loggedUser && loggedUser[0].email === "med@virumalmedicalhall.com" ?
                     <div>
                         <form action="" className='addprod-form' onSubmit={handleAddProduct}>
                             {
@@ -247,38 +247,39 @@ const AddProducts = () => {
                                 </>
                             }
                             <label htmlFor="">Brand Name</label>
-                            <input type="text" placeholder='Brand Name' value={brandName} onChange={(e) => { setBrandName(e.target.value) }} />
+                            <input type="text" placeholder='Brand Name' value={brandName} onChange={(e) => { setBrandName(e.target.value) }} required/>
                             <label>Category</label>
-                            <input onChange={(e) => setCategory(e.target.value)} value={category} type="text" placeholder="Category" />
+                            <input onChange={(e) => setCategory(e.target.value)} value={category} type="text" placeholder="Category" required/>
+                            <label>Name</label>
+                            <input value={productName} onChange={(e) => setProductName(e.target.value)} placeholder="Medicine Name" required/>
                             <label>In Stock</label>
-                            <input onChange={(e) => setCountInStock(e.target.value)} type="number" value={countInStock} placeholder="In Stock Value" />
+                            <input onChange={(e) => setCountInStock(e.target.value)} type="number" value={countInStock} placeholder="In Stock Value" required/>
                             <label>Molecule of Medicine</label>
                             <input onChange={(e) => setMolecule(e.target.value)} type="text" value={molecule} placeholder="Molecule of Medicine" />
                             <label>Price</label>
-                            <input onChange={(e) => setPrice(e.target.value)} type="number" value={price} placeholder="Price" />
+                            <input onChange={(e) => setPrice(e.target.value)} type="number" value={price} placeholder="Price" required/>
                             <label>Image</label>
-                            <input  onChange={(e) => { 
+                            <input onChange={(e) => {
                                 setImages(e.target.files);
-                                if(e.target.files.length > 5){
+                                if (e.target.files.length > 5) {
                                     alert("Only Five images accepted");
                                     e.preventDefault();
                                     ResetFields();
                                 }
-                                }} type="file" multiple />
+                            }} type="file" accept='image/*' multiple required/>
                             {imageError && <>
                                 <div className='error-msg'>{imageError}</div>
                             </>}
 
                             <label>Details</label>
                             <textarea value={productDetails} onChange={(e) => setProductDetails(e.target.value)} placeholder="Enter details of Medicine"></textarea>
-                            <label>Name</label>
-                            <input value={productName} onChange={(e) => setProductName(e.target.value)} placeholder="Medicine Name"></input>
+                            
                             <label>Salt </label>
-                            <input value={salt1} onChange={(e) => setSalt1(e.target.value)} type="text" placeholder="Salt Name" />
+                            <input value={salt1} onChange={(e) => setSalt1(e.target.value)} type="text" placeholder="Salt Name" required/>
                             <label>Power Of Salt(mg)</label>
-                            <input value={powerSalt1} onChange={(e) => setPowerSalt1(e.target.value)} type="number" placeholder="Power of salt(mg)" />
+                            <input value={powerSalt1} onChange={(e) => setPowerSalt1(e.target.value)} type="number" placeholder="Power of salt(mg)" required/>
                             <label>Expiry Date</label>
-                            <input type="date" value={expDate} onChange={(e)=>{setExpDate(e.target.value)}}  min={`${year}-${month}-${date}`} max={"2030-12-31"}></input>
+                            <input type="date" value={expDate} onChange={(e) => { setExpDate(e.target.value) }} min={`${year}-${month}-${date}`} max={"2030-12-31"} required />
                             {/* <label>Salt 2 </label>
                 <input onChange={(e) => setSalt2(e.target.value)} type="text" placeholder="Enter Price without tax" />
                 <label>Power Of Salt 2(mg)</label>

@@ -45,7 +45,7 @@ const Admin = () => {
         <p className="admin-panel-text">ADMIN PANEL</p>
 
         <div className="text">
-          <h2>Welcome Back Admin&nbsp;&nbsp; {months[month]+" "+date+","+year}</h2>
+          <h2>Welcome Back Admin&nbsp;&nbsp; {months[month-1]+" "+date+","+year}</h2>
         </div>
 
         <div className="dashboardBtns">

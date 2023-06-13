@@ -41,7 +41,7 @@ useEffect(()=>{
 })
 useEffect(()=>{
   if(loggedUser){
-    if(loggedUser[0].email == "admin@admin.com"){
+    if(loggedUser[0].email == "med@virumalmedicalhall.com"){
       localStorage.setItem("adminUser",true);
       localStorage.setItem("categoryId",loggedUser[0].categoryId);
       navigate('/admin');

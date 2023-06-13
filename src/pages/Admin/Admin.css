@@ -3,6 +3,14 @@
     /* padding: 0 10rem; */
     /* width: calc(100%-22rem); */
 }
+.hover-effect{
+  transition: .2s linear;
+  cursor: pointer;
+  /* background-color: red; */
+}
+.hover-effect:hover{
+  transform: scale(1.2);
+}
 
 .popup-bg{
   position: fixed;

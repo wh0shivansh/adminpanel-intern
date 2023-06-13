@@ -48,9 +48,11 @@ const Sidebar = () => {
     </div>
 
     <div className='backbtn'>
+      {url !== "/admin"&&
       <button className='back'>
         <Link to={"/admin"}><IoMdArrowRoundBack size={40} color='#000'/></Link>
       </button>
+      }
     </div>
 
     </>

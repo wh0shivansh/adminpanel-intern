@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { arrayRemove, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import AdminProducts from './AdminProducts';
 import { Link, useNavigate } from 'react-router-dom';
 import { GrAdd } from "react-icons/gr"
@@ -10,6 +10,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import './AllProducts.css';
 
 const AllProducts = () => {
+  var cnt=0;
   const navigate = useNavigate();
 useEffect(()=>{
  let login = localStorage.getItem("adminUser");
@@ -25,6 +26,7 @@ useEffect(()=>{
   const [path, setPath] = useState("");
   const [loading, setloading] = useState(false);
   const [count, setcount] = useState(1);
+  let indexNum=1;
   // let path = '';
   // function changePath(path){
   //     setPath(`${path}`);
@@ -77,6 +79,30 @@ useEffect(()=>{
     setPath(`${c}`);
   }
 
+
+
+
+if(categories){
+  const checkCategoriesAndDelete=async()=>{
+    for(let i=0;i<categories.length;i++){
+      const q = query(collection(db,"products"),where("product.category","==",categories[i]));
+      const querySnapshot = await getDocs(q);
+      if(querySnapshot.empty){
+        await updateDoc(doc(db, "categories", `${localStorage.getItem('categoryId')}`), {
+          category: arrayRemove(`${categories[i]}`),
+        }).then(()=>{
+          console.log("Deleted = "+categories[i]);
+        });
+
+      }
+      
+    }
+  }
+  checkCategoriesAndDelete();
+}
+
+
+
   return (
     <>
 
@@ -86,15 +112,13 @@ useEffect(()=>{
           <Navbar/>
           <Sidebar />
 
-        <p className='page-title'>All Products</p>
+        <p className='page-title'>All Medicines</p>
 
 
           <div className="admin-dashboard">
-
-
             <div className="categories ">
               <select className='select-category' id="" onChange={handleCategoryChange}>
-                <option value="default" hidden>Select Category</option>
+                <option value="default">All Medicines</option>
                 {
                   categories.map((c, key) => {
                     return <option key={key} value={`${c}`}>{c}</option>
@@ -105,13 +129,25 @@ useEffect(()=>{
               </div>
             </div>
 
+            <div className='prod-count'>
+              {
+                products.map((p)=>{
+                  (p.product.category == path)?cnt++:cnt=cnt
+                })
+              }
+              {
+                (path=="" || path=="default")?`Total Medicines : ${products.length}`:`Total Medicines : ${cnt}`
+              }
+            </div>
+
             {loading ? <span><Spinner /></span> :
               <div className="admin-products">
-
                 <table>
                   <thead>
                     <tr>
+                      {(path=="default" || path=="")&&
                       <th>Sno.</th>
+                      }
                       <th>Image</th>
                       <th>Name</th>
                       <th>Brand</th>
@@ -120,10 +156,13 @@ useEffect(()=>{
                       <th>InStock</th>
                       <th>Options</th>
                     </tr>
+               
                     {products.map((product,index) => (
-                      <AdminProducts key={product.id} products={product} category={path} index={index}/>
+                      <AdminProducts key={product.id} products={product} category={path} index={index} />
                       // setcount(setcount);
                     ))}
+
+
                   </thead>
                 </table>
 

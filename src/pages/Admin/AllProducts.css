@@ -11,8 +11,20 @@
     text-transform: capitalize;
 }
 
+.prod-count{
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width:430px) {
     .select-category{
         width: 19rem;
     }
+    .prod-count{
+        margin-left: 5px;
+    }
 }
+
