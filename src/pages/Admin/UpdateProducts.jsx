@@ -154,9 +154,11 @@ const UpdateProducts = () => {
             setUploadError(error.message)
          });
          if(id){
-            await updateDoc(doc(db, "products", id), {
-                images: deleteField(),
-            });
+            if(images){
+                await updateDoc(doc(db, "products", id), {
+                    images: deleteField(),
+                });
+            }
             uploadFiles(id);
         }
 
