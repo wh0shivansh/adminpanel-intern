@@ -10,14 +10,14 @@ import Navbar from '../../components/Navbar/Navbar';
 import './AllProducts.css';
 
 const AllProducts = () => {
-  var cnt=0;
+  var cnt = 0;
   const navigate = useNavigate();
-useEffect(()=>{
- let login = localStorage.getItem("adminUser");
- if(!login){
-  navigate('/login');
- }
-})
+  useEffect(() => {
+    let login = localStorage.getItem("adminUser");
+    if (!login) {
+      navigate('/login');
+    }
+  })
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [products, setProducts] = useState([]);
@@ -26,7 +26,8 @@ useEffect(()=>{
   const [path, setPath] = useState("");
   const [loading, setloading] = useState(false);
   const [count, setcount] = useState(1);
-  let indexNum=1;
+  const [filterLoading, setFilterLoading] = useState(false);
+  let indexNum = 1;
   // let path = '';
   // function changePath(path){
   //     setPath(`${path}`);
@@ -82,24 +83,30 @@ useEffect(()=>{
 
 
 
-if(categories){
-  const checkCategoriesAndDelete=async()=>{
-    for(let i=0;i<categories.length;i++){
-      const q = query(collection(db,"products"),where("product.category","==",categories[i]));
-      const querySnapshot = await getDocs(q);
-      if(querySnapshot.empty){
-        await updateDoc(doc(db, "categories", `${localStorage.getItem('categoryId')}`), {
-          category: arrayRemove(`${categories[i]}`),
-        }).then(()=>{
-          console.log("Deleted = "+categories[i]);
-        });
+  const checkCategoriesAndDelete = async () => {
+    setFilterLoading(true);
+    if (categories) {
+      for (let i = 0; i < categories.length; i++) {
+        const q = query(collection(db, "products"), where("product.category", "==", categories[i]));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+          await updateDoc(doc(db, "categories", `${localStorage.getItem('categoryId')}`), {
+            category: arrayRemove(`${categories[i]}`),
+          }).then(() => {
+            console.log("Deleted = " + categories[i]);
+            alert("Categories Filtered! Refresh the page");
+            setFilterLoading(false);
+          });
+
+        }else{
+          setFilterLoading(false);
+        }
 
       }
-      
+    }else{
+      setFilterLoading(false);
     }
   }
-  checkCategoriesAndDelete();
-}
 
 
 
@@ -109,10 +116,10 @@ if(categories){
 
       {categories && products &&
         <div className='admin page-right'>
-          <Navbar/>
+          <Navbar />
           <Sidebar />
 
-        <p className='page-title'>All Medicines</p>
+          <p className='page-title'>All Medicines</p>
 
 
           <div className="admin-dashboard">
@@ -130,14 +137,19 @@ if(categories){
             </div>
 
             <div className='prod-count'>
+            <span>
               {
-                products.map((p)=>{
-                  (p.product.category == path)?cnt++:cnt=cnt
+                products.map((p) => {
+                  (p.product.category == path) ? cnt++ : cnt = cnt
                 })
               }
               {
-                (path=="" || path=="default")?`Total Medicines : ${products.length}`:`Total Medicines : ${cnt}`
+                (path == "" || path == "default") ? `Total Medicines : ${products.length}` : `Total Medicines : ${cnt}`
               }
+            </span>
+            <span className='filter-cat-btn' onClick={checkCategoriesAndDelete}>
+              {filterLoading?<Spinner/>:"Filter Categories"}
+            </span>
             </div>
 
             {loading ? <span><Spinner /></span> :
@@ -145,8 +157,8 @@ if(categories){
                 <table>
                   <thead>
                     <tr>
-                      {(path=="default" || path=="")&&
-                      <th>Sno.</th>
+                      {(path == "default" || path == "") &&
+                        <th>Sno.</th>
                       }
                       <th>Image</th>
                       <th>Name</th>
@@ -156,8 +168,8 @@ if(categories){
                       <th>InStock</th>
                       <th>Options</th>
                     </tr>
-               
-                    {products.map((product,index) => (
+
+                    {products.map((product, index) => (
                       <AdminProducts key={product.id} products={product} category={path} index={index} />
                       // setcount(setcount);
                     ))}

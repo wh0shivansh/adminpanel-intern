@@ -12,11 +12,32 @@
 }
 
 .prod-count{
+    padding-right: 8rem;
+    justify-content: space-between;
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
     margin-left: 40px;
     margin-bottom: 20px;
+}
+.filter-cat-btn{
+    font-weight: normal;
+    background-color: #000;
+    color: #feffff;
+    padding: 6px;
+    box-shadow: 0 0 5px #00000084;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .2s linear;
+    letter-spacing: .2px;
+    width: 9rem;
+}
+.filter-cat-btn:hover{
+    background-color: #feffff;
+    color: #000;
 }
 
 @media screen and (max-width:430px) {

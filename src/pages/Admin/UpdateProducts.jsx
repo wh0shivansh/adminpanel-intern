@@ -16,7 +16,7 @@ const UpdateProducts = () => {
     let date = newDate.getDate();
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
-    const [images, setImages] = useState();
+    const [images, setImages] = useState(null);
     const [urls, setUrls] = useState('');
     const [isExist, setIsExist] = useState(false);
     const [isExistCat, setIsExistCat] = useState(false);
@@ -42,7 +42,6 @@ const UpdateProducts = () => {
     const [brandName, setBrandName] = useState("");
     const [category, setCategory] = useState("");
     const [countInStock, setCountInStock] = useState("");
-    const [image, setImage] = useState("");
     const [price, setPrice] = useState("");
     const [productDetails, setProductDetails] = useState("");
     const [productName, setProductName] = useState("");
@@ -56,12 +55,11 @@ const UpdateProducts = () => {
         if (!product) {
             navigate('/admin')
         }
-
         else {
             setBrandName(product.brandName);
             setCategory(product.category);
+            console.log("Product Cat = "+product.category);
             setCountInStock(product.countInStock);
-            setImage(product.image);
             setMolecule(product.molecule);
             setPrice(product.price);
             setProductDetails(product.productDetails);
@@ -129,6 +127,7 @@ const UpdateProducts = () => {
         setImages(null);
         setImages("");
         setPrice("");
+        setCategory("");
     }
 
 
@@ -139,7 +138,7 @@ const UpdateProducts = () => {
         updateDoc(doc(db, `products`, `${id}`), {
             product: {
                 brandName:brandName.toLowerCase(),
-                category:category.toLowerCase(),
+                category,
                 countInStock,
                 price,
                 productDetails,
