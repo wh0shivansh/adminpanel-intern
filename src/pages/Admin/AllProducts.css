@@ -48,4 +48,9 @@
         margin-left: 5px;
     }
 }
+@media screen and (max-width:550px){
+    .prod-count{
+        padding-right:1rem;
+    }
+}
 
